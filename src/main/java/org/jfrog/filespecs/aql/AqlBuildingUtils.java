@@ -46,7 +46,7 @@ class AqlBuildingUtils {
 
     private static List<String> getQueryReturnFields(String[] sortByFields) {
         ArrayList<String> includeFields = new ArrayList<String>(
-                Arrays.asList("name", "repo", "path", "actual_md5", "actual_sha1", "size", "type"));
+                Arrays.asList("name", "repo", "path", "actual_md5", "actual_sha1", "size", "type", "modified", "created"));
         for (String field : sortByFields) {
             if (includeFields.indexOf(field) == -1) {
                 includeFields.add(field);
