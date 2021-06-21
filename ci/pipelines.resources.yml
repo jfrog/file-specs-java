@@ -2,22 +2,19 @@ resources:
   - name: fileSpecsJavaSnapshotGit
     type: GitRepo
     configuration:
-      # TODO: Need to change to jfrog after the repo is created
-      path: asafgabai/file-specs-java
-      gitProvider: asaf_github
+      path: jfrog/file-specs-java
+      gitProvider: github
       buildOn:
         pullRequestCreate: true
       branches:
-        # TODO: Need to change to main or master
-        include: new-project-for-file-specs
+        include: main
       cancelPendingRunsOn:
         pullRequestUpdate: true
 
   - name: fileSpecsJavaReleaseGit
     type: GitRepo
     configuration:
-      # TODO: Need to change to jfrog after the repo is created
-      path: asafgabai/file-specs-java
-      gitProvider: asaf_github
+      path: jfrog/file-specs-java
+      gitProvider: github
       buildOn:
         commit: false
