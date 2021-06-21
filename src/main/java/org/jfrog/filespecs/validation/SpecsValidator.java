@@ -4,7 +4,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jfrog.filespecs.entities.FilesGroup;
 import org.jfrog.filespecs.entities.InvalidFileSpecException;
-import org.jfrog.filespecs.entities.FileSpec;
+import org.jfrog.filespecs.FileSpec;
 
 /**
  * Created by tamirh on 19/06/2017.

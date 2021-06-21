@@ -6,7 +6,6 @@ import org.jfrog.filespecs.distribution.PathMapping;
 import org.jfrog.filespecs.distribution.PathMappingGenerator;
 import org.jfrog.filespecs.entities.FilesGroup;
 import org.jfrog.filespecs.entities.InvalidFileSpecException;
-import org.jfrog.filespecs.entities.FileSpec;
 import org.jfrog.filespecs.properties.PropertiesParser;
 import org.jfrog.filespecs.properties.Property;
 import org.jfrog.filespecs.validation.SearchBasedSpecValidator;

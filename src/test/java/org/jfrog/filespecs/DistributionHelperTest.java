@@ -2,7 +2,6 @@ package org.jfrog.filespecs;
 
 import org.jfrog.filespecs.distribution.DistributionSpecComponent;
 import org.jfrog.filespecs.distribution.PathMapping;
-import org.jfrog.filespecs.entities.FileSpec;
 import org.jfrog.filespecs.entities.InvalidFileSpecException;
 import org.jfrog.filespecs.properties.Property;
 import org.testng.Assert;

@@ -186,7 +186,7 @@ public class FilesGroup {
     }
 
     /**
-     * Calculates the type of the files group. If the files group doesn't match any type - null is returned.
+     * Returns the type of the files group. If the files group doesn't match any type - null is returned.
      * @return the type of the files group
      */
     public SpecType getSpecType() {

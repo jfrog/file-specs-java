@@ -1,9 +1,10 @@
-package org.jfrog.filespecs.entities;
+package org.jfrog.filespecs;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.jfrog.filespecs.FileSpecsParsingUtils;
 import org.jfrog.filespecs.aql.AqlConverter;
+import org.jfrog.filespecs.entities.FilesGroup;
+import org.jfrog.filespecs.entities.InvalidFileSpecException;
 import org.jfrog.filespecs.validation.SearchBasedSpecValidator;
 import org.jfrog.filespecs.validation.SpecsValidator;
 
@@ -55,13 +56,13 @@ public class FileSpec {
      */
     public static FileSpec fromString(String specStr) throws InvalidFileSpecException {
         ObjectMapper mapper = new ObjectMapper();
-        // When mapping the file spec from String to FileSpec one backslash is being removed, multiplying the backslashes solves this.
+        // When mapping the file spec from String to FileSpec, one backslash is being removed, multiplying the backslashes solves this.
         specStr = specStr.replace("\\", "\\\\");
         FileSpec fileSpec;
         try {
             fileSpec = mapper.readValue(specStr, FileSpec.class);
         } catch (JsonProcessingException e) {
-            throw new InvalidFileSpecException("Parsing of file spec failed", e);
+            throw new InvalidFileSpecException(String.format("Parsing of file spec failed:\n%s", specStr), e);
         }
         FileSpecsParsingUtils.pathToUnixFormat(fileSpec);
 

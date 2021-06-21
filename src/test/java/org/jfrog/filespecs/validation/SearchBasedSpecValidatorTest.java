@@ -1,6 +1,6 @@
 package org.jfrog.filespecs.validation;
 
-import org.jfrog.filespecs.entities.FileSpec;
+import org.jfrog.filespecs.FileSpec;
 import org.jfrog.filespecs.entities.InvalidFileSpecException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;

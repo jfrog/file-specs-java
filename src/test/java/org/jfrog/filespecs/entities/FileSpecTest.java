@@ -1,5 +1,6 @@
 package org.jfrog.filespecs.entities;
 
+import org.jfrog.filespecs.FileSpec;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

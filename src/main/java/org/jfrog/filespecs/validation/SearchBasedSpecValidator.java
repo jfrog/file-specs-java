@@ -1,7 +1,7 @@
 package org.jfrog.filespecs.validation;
 
 import org.apache.commons.lang.StringUtils;
-import org.jfrog.filespecs.entities.FileSpec;
+import org.jfrog.filespecs.FileSpec;
 import org.jfrog.filespecs.entities.FilesGroup;
 import org.jfrog.filespecs.entities.InvalidFileSpecException;
 
