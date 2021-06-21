@@ -1,0 +1,20 @@
+resources:
+  - name: fileSpecsJavaSnapshotGit
+    type: GitRepo
+    configuration:
+      path: jfrog/file-specs-java
+      gitProvider: github
+      buildOn:
+        pullRequestCreate: true
+      branches:
+        include: main
+      cancelPendingRunsOn:
+        pullRequestUpdate: true
+
+  - name: fileSpecsJavaReleaseGit
+    type: GitRepo
+    configuration:
+      path: jfrog/file-specs-java
+      gitProvider: github
+      buildOn:
+        commit: false

@@ -1,0 +1,64 @@
+plugins {
+    // Apply the java-library plugin for API and implementation separation.
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group 'com.jfrog.filespecs'
+version currentVersion
+
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url "https://oss.jfrog.org/artifactory/libs-snapshot"
+        mavenContent {
+            snapshotsOnly()
+        }
+    }
+    maven {
+        url "https://oss.jfrog.org/artifactory/libs-release"
+    }
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.5.1'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.10.5'
+    implementation 'commons-lang:commons-lang:2.4'
+
+    testImplementation 'org.testng:testng:7.1.0'
+    testImplementation 'commons-io:commons-io:2.8.0'
+}
+
+test {
+    test.useTestNG()
+    testLogging {
+        exceptionFormat "full"
+        events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+        minGranularity 0
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier.set('sources')
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier.set('javadoc')
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact sourcesJar
+            artifact javadocJar
+            from components.java
+        }
+    }
+}
