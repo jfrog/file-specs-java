@@ -43,4 +43,4 @@ FilesGroup group2 = new FilesGroup().setPattern("repo1/dir/*");
 fileSpec.addFilesGroup(group2);
 List<String> aqls = fileSpec.toAql();
 ```
-In the above example, the returned list contains two strings with AQL queries, one for each group.
+In the above example, the returned list contains two strings with AQL queries, one for each files group.
