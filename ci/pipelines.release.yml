@@ -37,7 +37,7 @@ pipelines:
             - export JFROG_CLI_BUILD_NUMBER=$run_number
 
             # Configure git
-            - git checkout master
+            - git checkout main
             - git remote set-url origin https://$int_github_generic_token@github.com/jfrog/file-specs-java.git
 
             # Make sure versions provided
@@ -50,7 +50,7 @@ pipelines:
 
             # Configure JFrog CLI
             - ./jfrog rt c releases --url=https://releases.jfrog.io/artifactory --access-token=$int_releases_jfrog_token
-            - ./jfrog rt gradlec --use-wrapper --deploy-ivy-desc=false --deploy-maven-desc=false
+            - ./jfrog rt gradlec --use-wrapper --deploy-ivy-desc=false --deploy-maven-desc=true --uses-plugin=false
               --server-id-resolve releases --repo-resolve jcenter
               --server-id-deploy releases --repo-deploy oss-release-local
 

@@ -35,7 +35,7 @@ pipelines:
 
             # Configure JFrog CLI
             - ./jfrog rt c releases --url https://releases.jfrog.io/artifactory --access-token=$int_releases_jfrog_token
-            - ./jfrog rt gradlec --use-wrapper --deploy-ivy-desc=false --deploy-maven-desc=false
+            - ./jfrog rt gradlec --use-wrapper --deploy-ivy-desc=false --deploy-maven-desc=true --uses-plugin=false
               --server-id-resolve releases --repo-resolve jcenter
               --server-id-deploy releases --repo-deploy oss-snapshot-local
 
