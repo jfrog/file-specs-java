@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by romang on 4/26/16.
  */
+@SuppressWarnings("unused")
 public class Aql {
     private String find;
 
@@ -17,7 +18,11 @@ public class Aql {
     }
 
     @JsonProperty("items.find")
-    public void setFind(LinkedHashMap find) throws JsonProcessingException {
+    public void setFind(LinkedHashMap<?, ?> find) throws JsonProcessingException {
         this.find = new ObjectMapper().writeValueAsString(find);
+    }
+
+    public void setFind(String find) {
+        this.find = find;
     }
 }
