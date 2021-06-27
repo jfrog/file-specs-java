@@ -3,9 +3,14 @@ package org.jfrog.filespecs.properties;
 import java.util.Objects;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public class Property {
     private String key;
     private Set<String> values;
+
+    // Default constructor for serialization
+    public Property() {
+    }
 
     public Property(String key, Set<String> values) {
         this.key = key;
