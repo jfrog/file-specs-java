@@ -22,7 +22,7 @@ pipelines:
           inputResources:
             - name: fileSpecsJavaReleaseGit
           integrations:
-            - name: releases_jfrog
+            - name: file_specs_releases
             - name: github_generic
         execution:
           onStart:
