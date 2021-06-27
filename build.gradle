@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-group 'com.jfrog.filespecs'
+group 'org.jfrog.filespecs'
 version currentVersion
 
 compileJava {
