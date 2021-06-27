@@ -1,6 +1,8 @@
 package org.jfrog.filespecs.entities;
 
-public class InvalidFileSpecException extends Exception {
+import java.io.IOException;
+
+public class InvalidFileSpecException extends IOException {
     public InvalidFileSpecException(String message) {
         super(message);
     }
