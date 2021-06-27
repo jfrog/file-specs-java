@@ -2,9 +2,14 @@ package org.jfrog.filespecs.distribution;
 
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class PathMapping {
     private String input;
     private String output;
+
+    // Empty constructor for serialization
+    public PathMapping() {
+    }
 
     public PathMapping(String input, String output) {
         this.input = input;
