@@ -15,14 +15,15 @@ compileJava {
 repositories {
     mavenLocal()
     maven {
-        url "https://releases.jfrog.org/artifactory/oss-snapshots"
+        url "https://releases.jfrog.io/artifactory/oss-snapshots"
         mavenContent {
             snapshotsOnly()
         }
     }
     maven {
-        url "https://releases.jfrog.org/artifactory/oss-releases"
+        url "https://releases.jfrog.io/artifactory/oss-releases"
     }
+    mavenCentral()
 }
 
 dependencies {
