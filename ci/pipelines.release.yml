@@ -67,7 +67,6 @@ pipelines:
               JFROG_CLI_BUILD_NAME=$JFROG_CLI_BUILD_NAME
               JFROG_CLI_BUILD_NUMBER=$JFROG_CLI_BUILD_NUMBER
               ./jfrog rt gradle clean build -x test artifactoryPublish
-            - ./jfrog rt bp
 
             # Update next development version
             - sed -i "s/\(currentVersion=\).*\$/\1${NEXT_DEVELOPMENT_VERSION}/" gradle.properties
