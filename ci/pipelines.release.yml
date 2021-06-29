@@ -24,6 +24,7 @@ pipelines:
           integrations:
             - name: releases_temp
             - name: github_generic
+            - name: mvn_central
         execution:
           onStart:
             - *UPDATE_COMMIT_STATUS
@@ -67,6 +68,14 @@ pipelines:
               JFROG_CLI_BUILD_NAME=$JFROG_CLI_BUILD_NAME
               JFROG_CLI_BUILD_NUMBER=$JFROG_CLI_BUILD_NUMBER
               ./jfrog rt gradle clean build -x test artifactoryPublish
+
+            # Publish to Maven Central
+            - >
+              ORG_GRADLE_PROJECT_sonatypeUsername=$int_mvn_central_user
+              ORG_GRADLE_PROJECT_sonatypePassword=$int_mvn_central_password
+              ORG_GRADLE_PROJECT_signingKey=$(echo $int_mvn_central_signingKey | base64 -d)
+              ORG_GRADLE_PROJECT_signingPassword=$int_mvn_central_signingPassword
+              ./gradlew clean build publishToSonatype closeAndReleaseSonatypeStagingRepository -x test -Psign
 
             # Update next development version
             - sed -i "s/\(currentVersion=\).*\$/\1${NEXT_DEVELOPMENT_VERSION}/" gradle.properties

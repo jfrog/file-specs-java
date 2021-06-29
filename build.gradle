@@ -2,6 +2,8 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
     id 'maven-publish'
+    id 'signing'
+    id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 }
 
 group 'org.jfrog.filespecs'
@@ -55,11 +57,47 @@ task javadocJar(type: Jar) {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact sourcesJar
-            artifact javadocJar
-            from components.java
+    def publication = publications.create("mavenJava", MavenPublication) {
+        artifact sourcesJar
+        artifact javadocJar
+        from components.java
+
+        pom {
+            name = project.name
+            description = project.description ?: "JFrog File Spec Java"
+            url = 'https://www.jfrog.com/confluence/display/JFROG/Using+File+Specs'
+
+            licenses {
+                license {
+                    name = 'The Apache License, Version 2.0'
+                    url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+            developers {
+                developer {
+                    name = 'JFrog'
+                    email = 'eco-system@jfrog.com'
+                }
+            }
+            scm {
+                connection = 'scm:git:git://github.com/jfrog/file-specs-java.git'
+                developerConnection = 'scm:git:git@github.com:jfrog/file-specs-java.git'
+                url = 'https://github.com/jfrog/file-specs-java'
+            }
         }
     }
+    signing {
+        required { project.hasProperty('sign') }
+        def signingKey = findProperty("signingKey")
+        def signingPassword = findProperty("signingPassword")
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publication
+    }
+
+    if (project.plugins.hasPlugin('Artifactory')) {
+        artifactoryPublish {
+            publications(publication)
+        }
+    }
+
 }
