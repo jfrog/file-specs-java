@@ -99,5 +99,10 @@ publishing {
             publications(publication)
         }
     }
+}
 
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
 }
