@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jfrog.filespecs.aql.AqlConverter;
 import org.jfrog.filespecs.entities.FilesGroup;
 import org.jfrog.filespecs.entities.InvalidFileSpecException;
-import org.jfrog.filespecs.validation.SearchBasedSpecValidator;
-import org.jfrog.filespecs.validation.SpecsValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +34,7 @@ public class FileSpec {
      * @throws InvalidFileSpecException if the given file spec is invalid or not search-based.
      */
     public List<String> toAql() throws InvalidFileSpecException {
-        SpecsValidator specsValidator = new SearchBasedSpecValidator();
-        specsValidator.validate(this);
+        FileSpecsValidation.validateSearchBasedFileSpec(this);
         List<String> aqls = new ArrayList<>();
 
         for (FilesGroup file : this.getFiles()) {
@@ -48,7 +45,8 @@ public class FileSpec {
     }
 
     /**
-     * Converts string to a FileSpec object
+     * Converts string to a FileSpec object.
+     * This method only parses the file spec and does not validate its content (to do that, use {@link FileSpecsValidation}).
      *
      * @param specStr the string to convert
      * @return a FileSpec object that represents the string

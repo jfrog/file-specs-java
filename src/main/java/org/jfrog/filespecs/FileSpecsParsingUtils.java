@@ -17,6 +17,8 @@ public class FileSpecsParsingUtils {
             }
             if (!ArrayUtils.isEmpty(filesGroup.getExclusions())) {
                 filesGroup.setExclusions(fixExclusionsPathToUnixFormat(filesGroup.getExclusions(), separator));
+            } else if (!ArrayUtils.isEmpty(filesGroup.getExcludePatterns())) {
+                filesGroup.setExcludePatterns(fixExclusionsPathToUnixFormat(filesGroup.getExcludePatterns(), separator));
             }
         }
     }

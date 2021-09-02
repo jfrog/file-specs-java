@@ -9,22 +9,30 @@ import java.util.Arrays;
  * Created by romang on 4/20/16.
  */
 public class FilesGroup {
-    protected Aql aql;
-    protected String pattern;
-    protected String target;
-    protected String props;
-    protected String targetProps;
-    protected String recursive;
-    protected String flat;
-    protected String regexp;
-    protected String explode;
-    protected String[] exclusions;
-    protected String[] sortBy;
-    protected String sortOrder;
-    protected String limit;
-    protected String offset;
+    private Aql aql;
+    private String pattern;
+    private String target;
+    private String props;
+    private String targetProps;
+    private String recursive;
+    private String flat;
+    private String regexp;
+    private String build;
+    private String explode;
+    private String[] exclusions;
+    private String[] sortBy;
+    private String sortOrder;
+    private String limit;
+    private String offset;
+
+    /**
+     * @deprecated Use {@link FilesGroup#exclusions} instead.
+     */
+    @Deprecated
+    protected String[] excludePatterns;
 
     public enum SpecType {
+        BUILD,
         PATTERN,
         AQL
     }
@@ -36,22 +44,22 @@ public class FilesGroup {
         return null;
     }
 
-    public String getPattern() {
-        return pattern;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
     public FilesGroup setAql(Aql aql) {
         this.aql = aql;
         return this;
     }
 
+    public String getPattern() {
+        return pattern;
+    }
+
     public FilesGroup setPattern(String pattern) {
         this.pattern = pattern;
         return this;
+    }
+
+    public String getTarget() {
+        return target;
     }
 
     public FilesGroup setTarget(String target) {
@@ -86,15 +94,6 @@ public class FilesGroup {
         return this;
     }
 
-    public String getRegexp() {
-        return regexp;
-    }
-
-    public FilesGroup setRegexp(String regexp) {
-        this.regexp = regexp;
-        return this;
-    }
-
     public String getFlat() {
         return flat;
     }
@@ -104,6 +103,23 @@ public class FilesGroup {
         return this;
     }
 
+    public String getRegexp() {
+        return regexp;
+    }
+
+    public FilesGroup setRegexp(String regexp) {
+        this.regexp = regexp;
+        return this;
+    }
+
+    public String getBuild() {
+        return build;
+    }
+
+    public void setBuild(String build) {
+        this.build = build;
+    }
+
     public String getExplode() {
         return explode;
     }
@@ -111,13 +127,6 @@ public class FilesGroup {
     public FilesGroup setExplode(String explode) {
         this.explode = explode;
         return this;
-    }
-
-    public String[] getSortBy() {
-        if (sortBy != null) {
-            return sortBy;
-        }
-        return ArrayUtils.EMPTY_STRING_ARRAY;
     }
 
     public String[] getExclusions() {
@@ -131,6 +140,13 @@ public class FilesGroup {
 
     public String getExclusion(int index) {
         return exclusions[index];
+    }
+
+    public String[] getSortBy() {
+        if (sortBy != null) {
+            return sortBy;
+        }
+        return ArrayUtils.EMPTY_STRING_ARRAY;
     }
 
     public FilesGroup setSortBy(String[] sortBy) {
@@ -147,6 +163,15 @@ public class FilesGroup {
         return this;
     }
 
+    public String getLimit() {
+        return limit;
+    }
+
+    public FilesGroup setLimit(String resultLimit) {
+        this.limit = resultLimit;
+        return this;
+    }
+
     public String getOffset() {
         return offset;
     }
@@ -156,13 +181,30 @@ public class FilesGroup {
         return this;
     }
 
-    public String getLimit() {
-        return limit;
+    /**
+     * @deprecated Use {@link FilesGroup#getExclusions()} instead.
+     */
+    @Deprecated
+    public String[] getExcludePatterns() {
+        return excludePatterns;
     }
 
-    public FilesGroup setLimit(String resultLimit) {
-        this.limit = resultLimit;
-        return this;
+    /**
+     * @deprecated Use {@link FilesGroup#setExclusions(String[] exclusions)} instead.
+     */
+    @Deprecated
+    public void setExcludePatterns(String[] excludePatterns) {
+        this.excludePatterns = excludePatterns;
+    }
+
+    @Deprecated
+    public String getExcludePattern(int index) {
+        return excludePatterns[index];
+    }
+
+    @Deprecated
+    public void setExcludePattern(String excludePattern, int index) {
+        this.excludePatterns[index] = excludePattern;
     }
 
     @Override
@@ -176,12 +218,14 @@ public class FilesGroup {
                 ", recursive='" + recursive + '\'' +
                 ", flat='" + flat + '\'' +
                 ", regexp='" + regexp + '\'' +
+                ", build='" + build + '\'' +
                 ", explode='" + explode + '\'' +
-                ", exclusions='" + Arrays.toString(exclusions) + '\'' +
-                ", sortBy='" + Arrays.toString(sortBy) + '\'' +
+                ", exclusions=" + Arrays.toString(exclusions) +
+                ", excludePatterns=" + Arrays.toString(excludePatterns) +
+                ", sortBy=" + Arrays.toString(sortBy) +
                 ", sortOrder='" + sortOrder + '\'' +
-                ", offset='" + offset + '\'' +
                 ", limit='" + limit + '\'' +
+                ", offset='" + offset + '\'' +
                 '}';
     }
 
@@ -190,7 +234,9 @@ public class FilesGroup {
      * @return the type of the files group
      */
     public SpecType getSpecType() {
-        if (StringUtils.isNotEmpty(this.pattern)) {
+        if (StringUtils.isNotEmpty(this.build) && StringUtils.isEmpty(getAql()) && (StringUtils.isEmpty(this.pattern) || this.pattern.equals("*"))) {
+            return SpecType.BUILD;
+        } else if (StringUtils.isNotEmpty(this.pattern)) {
             return SpecType.PATTERN;
         } else if (StringUtils.isNotEmpty(getAql())) {
             return SpecType.AQL;
