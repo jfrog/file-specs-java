@@ -91,7 +91,7 @@ class AqlBuildingUtils {
             return "";
         }
         List<RepoPathFile> excludeTriples = new ArrayList<>();
-        if (exclusions != null && exclusions.length > 0) {
+        if (!ArrayUtils.isEmpty(exclusions)) {
             for (String exclusion : exclusions) {
                 excludeTriples.addAll(PatternParsingUtils.createRepoPathFileTriples(prepareSearchPattern(exclusion), recursive));
             }
