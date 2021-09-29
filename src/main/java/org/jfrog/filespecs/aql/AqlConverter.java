@@ -27,6 +27,6 @@ public class AqlConverter {
 
     private static String convertPatternFileSpecToAql(FilesGroup file) {
         boolean recursive = !"false".equalsIgnoreCase(file.getRecursive());
-        return AqlBuildingUtils.buildAqlSearchQuery(file.getPattern(), file.getExclusions(), recursive, file.getProps());
+        return AqlBuildingUtils.buildAqlSearchQuery(file.getPattern(), file.getExclusions(), file.getExcludePatterns(), recursive, file.getProps());
     }
 }

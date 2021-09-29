@@ -60,7 +60,7 @@ class AqlBuildingUtils {
         return fields;
     }
 
-    static String buildAqlSearchQuery(String searchPattern, String[] exclusions, boolean recursive, String props) {
+    static String buildAqlSearchQuery(String searchPattern, String[] exclusions, String[] excludePatterns, boolean recursive, String props) {
         // Prepare.
         searchPattern = prepareSearchPattern(searchPattern);
 
@@ -70,7 +70,7 @@ class AqlBuildingUtils {
         int triplesSize = repoPathFileTriples.size();
 
         // Build query.
-        String excludeQuery = buildExcludeQuery(exclusions,triplesSize == 0 || recursive, recursive);
+        String excludeQuery = buildExcludeQuery(exclusions, excludePatterns,triplesSize == 0 || recursive, recursive);
         String nePath = buildNePathQuery(triplesSize == 0 || includeRoot);
         String json = String.format("{%s\"$or\":[", buildPropsQuery(props) + nePath + excludeQuery);
         StringBuilder aqlQuery = new StringBuilder(json);
@@ -86,13 +86,20 @@ class AqlBuildingUtils {
         return pattern.replaceAll("[()]", "");
     }
 
-    private static String buildExcludeQuery(String[] exclusions, boolean useLocalPath, boolean recursive) {
-        if (ArrayUtils.isEmpty(exclusions)) {
+    private static String buildExcludeQuery(String[] exclusions, String[] excludePatterns, boolean useLocalPath, boolean recursive) {
+        if (ArrayUtils.isEmpty(exclusions) && ArrayUtils.isEmpty(excludePatterns)) {
             return "";
         }
         List<RepoPathFile> excludeTriples = new ArrayList<>();
-        for (String exclusion : exclusions) {
-            excludeTriples.addAll(PatternParsingUtils.createRepoPathFileTriples(prepareSearchPattern(exclusion), recursive));
+        if (!ArrayUtils.isEmpty(exclusions)) {
+            for (String exclusion : exclusions) {
+                excludeTriples.addAll(PatternParsingUtils.createRepoPathFileTriples(prepareSearchPattern(exclusion), recursive));
+            }
+        } else {
+            // Support legacy exclude patterns. 'Exclude patterns' are deprecated and replaced by 'exclusions'.
+            for (String excludePattern : excludePatterns) {
+                excludeTriples.addAll(PatternParsingUtils.createPathFilePairs("", prepareSearchPattern(excludePattern), recursive));
+            }
         }
 
         String excludeQuery = "";

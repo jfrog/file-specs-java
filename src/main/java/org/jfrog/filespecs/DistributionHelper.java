@@ -8,8 +8,6 @@ import org.jfrog.filespecs.entities.FilesGroup;
 import org.jfrog.filespecs.entities.InvalidFileSpecException;
 import org.jfrog.filespecs.properties.PropertiesParser;
 import org.jfrog.filespecs.properties.Property;
-import org.jfrog.filespecs.validation.SearchBasedSpecValidator;
-import org.jfrog.filespecs.validation.SpecsValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +21,7 @@ public class DistributionHelper {
      * @throws InvalidFileSpecException if the given file spec is invalid.
      */
     public static List<DistributionSpecComponent> toSpecComponents(FileSpec fileSpec) throws InvalidFileSpecException {
-        SpecsValidator specsValidator = new SearchBasedSpecValidator();
-        specsValidator.validate(fileSpec);
+        FileSpecsValidation.validateSearchBasedFileSpec(fileSpec);
         List<DistributionSpecComponent> components = new ArrayList<>();
 
         for (FilesGroup file : fileSpec.getFiles()) {

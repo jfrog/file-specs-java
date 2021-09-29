@@ -8,7 +8,7 @@ import static org.testng.Assert.assertEquals;
 public class AqlBuildingUtilsTest {
     @Test(dataProvider = "buildAqlSearchQueryProvider")
     public void testBuildAqlSearchQuery(String pattern, boolean recursive, String expectedAql) {
-        String result = AqlBuildingUtils.buildAqlSearchQuery(pattern, null, recursive, null);
+        String result = AqlBuildingUtils.buildAqlSearchQuery(pattern, null, null, recursive, null);
         assertEquals(result, expectedAql);
     }
 
