@@ -1,7 +1,7 @@
 package org.jfrog.filespecs.distribution;
 
 import org.jfrog.filespecs.entities.FilesGroup;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -31,7 +31,7 @@ repositories {
 dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.5.1'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.10.5'
-    implementation 'commons-lang:commons-lang:2.4'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 
     testImplementation 'org.testng:testng:7.1.0'
     testImplementation 'commons-io:commons-io:2.8.0'

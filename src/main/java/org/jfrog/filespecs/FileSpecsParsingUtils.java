@@ -1,7 +1,7 @@
 package org.jfrog.filespecs;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jfrog.filespecs.entities.FilesGroup;
 
 public class FileSpecsParsingUtils {
