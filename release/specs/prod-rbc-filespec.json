@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "pattern": "ecosys-oss-release-local/(org/jfrog/filespecs/file-specs-java/${version}/file-specs-java-*)",
+      "target": "oss-release-local/{1}"
+    }
+  ]
+}

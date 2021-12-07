@@ -3,7 +3,7 @@ resources:
     type: GitRepo
     configuration:
       path: jfrog/file-specs-java
-      gitProvider: github
+      gitProvider: il_automation
       buildOn:
         pullRequestCreate: true
       branches:
@@ -15,6 +15,6 @@ resources:
     type: GitRepo
     configuration:
       path: jfrog/file-specs-java
-      gitProvider: github
+      gitProvider: il_automation
       buildOn:
         commit: false
