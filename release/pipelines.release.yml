@@ -30,7 +30,7 @@ pipelines:
             # Set env
             - export CI=true
             - export JFROG_BUILD_STATUS=PASS
-            - export JFROG_CLI_BUILD_NAME=ecosystem-file-specs-java
+            - export JFROG_CLI_BUILD_NAME=ecosystem-file-specs-java-release
             - export JFROG_CLI_BUILD_NUMBER=$run_number
             - export JFROG_CLI_BUILD_PROJECT=ecosys
 
@@ -58,14 +58,14 @@ pipelines:
 
             # Run build and publish
             - >
-              env -i PATH=$PATH HOME=$HOME GRADLE_OPTS=-Dorg.gradle.daemon=false
+              env -i PATH=$PATH HOME=$HOME
               JFROG_CLI_BUILD_NAME=$JFROG_CLI_BUILD_NAME
               JFROG_CLI_BUILD_NUMBER=$JFROG_CLI_BUILD_NUMBER
               JFROG_CLI_BUILD_PROJECT=$JFROG_CLI_BUILD_PROJECT
               ./jf gradle clean build -x test artifactoryPublish
             - ./jf rt bag && ./jf rt bce
             - ./jf rt bp
-            # - ./jf bs --fail=false
+            - ./jf bs --fail=false
 
             # Distribute release bundle
             - ./jf ds rbc file-specs-java $NEXT_VERSION --spec=./release/specs/prod-rbc-filespec.json --spec-vars="version=$NEXT_VERSION" --sign
@@ -73,7 +73,6 @@ pipelines:
 
             # Publish to Maven Central
             - >
-              env -i PATH=$PATH HOME=$HOME
               ORG_GRADLE_PROJECT_sonatypeUsername=$int_mvn_central_user
               ORG_GRADLE_PROJECT_sonatypePassword=$int_mvn_central_password
               ORG_GRADLE_PROJECT_signingKey=$(echo $int_mvn_central_signingKey | base64 -d)

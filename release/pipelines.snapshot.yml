@@ -48,7 +48,7 @@ pipelines:
               ./jf gradle clean build artifactoryPublish
             - ./jf rt bag && ./jf rt bce
             - ./jf rt bp
-            # - ./jf bs --fail=false
+            - ./jf bs --fail=false
 
             # Distribute release bundle
             - ./jf ds rbc file-specs-java-snapshot $run_number --spec=./release/specs/dev-rbc-filespec.json --sign
