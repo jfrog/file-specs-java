@@ -21,7 +21,7 @@ test -n "$NEXT_DEVELOPMENT_VERSION" -a "$NEXT_DEVELOPMENT_VERSION" != "0.0.x-SNA
 
 # Configure JFrog CLI servers
 jf c rm --quiet
-jf c add internal --url=$ARTIFACTORY_URL --user=$ARTIFACTORY_USER --password=$ARTIFACTORY_APIKEY
+jf c add internal --url=$ARTIFACTORY_URL --access-token=$ARTIFACTORY_APIKEY
 jf gradlec --use-wrapper --repo-resolve ecosys-maven-remote --repo-deploy ecosys-oss-release-local --deploy-maven-desc
 
 # Run audit
